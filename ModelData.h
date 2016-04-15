@@ -1,7 +1,6 @@
 #ifndef MODELDATA_H
 #define MODELDATA_H
-//#define GLSL(src) "#version 120 \n" #src
-#include "../System/lib.h"
+#include "../../lib.h"
 
 void enableDraw();
 void billboard();
