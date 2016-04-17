@@ -42,7 +42,8 @@ MenuShader::MenuShader(){
 	glBufferData( GL_ARRAY_BUFFER, sizeof(FSData), FSData, GL_STATIC_DRAW );
 
 	
-	menuT[EXIT] = loadTexture("loading.png", false);
+	menuT[LOAD] = loadTexture("loading.png", false);
+	menuT[TITLE] = loadTexture("title.png", false);
 
 }
 
