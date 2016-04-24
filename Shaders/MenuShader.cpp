@@ -22,7 +22,7 @@ const GLchar* menuFragShdr[] =	{
 	"}"
 };
 
-const GLfloat FSData[] = {	800, 600, 	800, 0,		0, 600,		0, 0}; //del
+const GLfloat FSData[] = {	dfWIDTH, dfHEIGHT, 	dfWIDTH, 0,		0, dfHEIGHT,		0, 0}; //del
 
 MenuShader::MenuShader(){
 	vbo = 0;	ebo = 0;
@@ -42,8 +42,8 @@ MenuShader::MenuShader(){
 	glBufferData( GL_ARRAY_BUFFER, sizeof(FSData), FSData, GL_STATIC_DRAW );
 
 	
-	menuT[LOAD] = loadTexture("loading.png", false);
-	menuT[TITLE] = loadTexture("title.png", false);
+	menuT[LOAD] = loadTexture("MENU/crablord.png", false);
+	menuT[TITLE] = loadTexture("MENU/title.png", false);
 
 }
 
@@ -72,7 +72,7 @@ void MenuShader::basicVAOsetup(VAO &v){
 void MenuShader::draw(int i){
 	glBindVertexArray(fsMenu.vao);
 	glBindTexture(GL_TEXTURE_2D, menuT[i]);
-	glUniform1f(scaUni, 1);	
+	glUniform1f(scaUni, PIXELSCALE);	
 	glUniform2f(posAtt, 0, -RES.z);		
 	Shader::draw();
 }
