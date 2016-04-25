@@ -27,6 +27,8 @@ const GLfloat FSData[] = {	dfWIDTH, dfHEIGHT, 	dfWIDTH, 0,		0, dfHEIGHT,		0, 0};
 MenuShader::MenuShader(){
 	vbo = 0;	ebo = 0;
 	posAtt = -1; texAtt = -1;
+	
+	initBufferObjects();
 
 	prog = glCreateProgram();
 	buildProgram(menuVerShdr, menuFragShdr, prog);

@@ -29,7 +29,6 @@ Triggers:
 	
 	GLuint scaleUni;
 
-	GLuint soil;
 	GLuint terrainT1[8];
 	GLuint terrainT2[8];
 };

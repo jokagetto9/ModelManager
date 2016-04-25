@@ -2,6 +2,7 @@
 #define MODELMANAGER_H
 
 #include "./Shaders/MenuShader.h"
+#include "./Shaders/TileShader.h"
 //********************************* CONSTANTS *********************************
 //********************************* EXTERNAL *********************************
 //********************************* INITIALIZATION *********************************
@@ -18,6 +19,7 @@ public:
 //************************************************** MEMBERS ***************************************************
 		
 	MenuShader menuBO;
+	TileShader tileBO;
 
 private:
 	ModelManager::ModelManager(){}

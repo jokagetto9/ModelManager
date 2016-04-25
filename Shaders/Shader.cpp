@@ -10,7 +10,6 @@ Shader::Shader(){
 	posAtt = -1; texAtt = -1;
 	vbo = 0; ebo = 0;
 	
-	initBufferObjects();
 }
 
 void Shader::initBufferObjects(){	

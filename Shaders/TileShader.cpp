@@ -12,7 +12,6 @@ void TileShader::quit(){
 	glDeleteVertexArrays(1, &vao);
 	glDeleteTextures(8, terrainT1);
 	glDeleteTextures(8, terrainT2);
-	glDeleteTextures(1, &soil);
 
 }	
 
@@ -36,6 +35,23 @@ void TileShader::draw(float sx, float sy, float tx, float ty){
 	//"   gl_FragColor = texture2D(tex, gl_TexCoord[0].xy) * vec4(1.0, 0.0, 0.0, 1.0);"
 	//"   gl_Position = ftransform();"
 	//"   gl_TexCoord[0] = gl_MultiTexCoord0;"
+
+const GLchar* defFragShdr[] =	{
+	"#version 150 compatibility\n"
+    "uniform sampler2D tex;"
+	"in vec2 t; "	
+	"in vec4 vs;"
+	"void main() { "
+	"	float d = length(vs);"
+	"	float fog = (gl_Fog.end - d) * gl_Fog.scale;"
+	"	fog = clamp(fog, 0, 1);"
+	"	vec4 image = texture2D(tex, t);"
+	"	if (image.w < 0.9) discard;"
+	"	vec3 color = mix(gl_Fog.color.rgb, image.rgb, fog);"
+	"	gl_FragColor = vec4(color.rgb, image.a);" //image;"//
+	"}"
+};
+
 const GLchar* tileVerShdr[] = {
 	"#version 150 compatibility\n"
 	"in int p;"
@@ -58,9 +74,7 @@ const GLchar* tileVerShdr[] = {
 
 void TileShader::build(){
 	
-	loadTexture2("grass1.png", terrainT1); //
-	loadTexture2("grass2.png", terrainT2); //2x4
-	soil = loadTexture("grass1.png", true);
+	terrainT1[0] = loadTexture("TERRAIN/grass1.png", true);
 
 	glGenVertexArrays(1, &vao); glBindVertexArray(vao);
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );

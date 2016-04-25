@@ -7,6 +7,7 @@ ModelManager* M;
 
 void ModelManager::		quit(){
 	menuBO.quit();			//if(_DEBUG) cout << "Quit: Menu Shader" << endl;
+	//tileBO.quit();		//if(_DEBUG) cout << "Quit: Terrain Shader1" << endl;
 	Shader::finalQuit();	
 	delete instance; instance = NULL;
 }
