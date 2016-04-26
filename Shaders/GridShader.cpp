@@ -4,6 +4,7 @@
 GridShader::GridShader(){
  	prog = 0;	vbo = 0;	ebo = 0;
 	posAtt = -1; texAtt = -1;
+	initBufferObjects();
 	build();
 	//glUniform1i(texUni[0], 0);		
 }
@@ -53,10 +54,6 @@ void GridShader::prepNPC(){
 	glUniform2f(texsUni, 0.25, 1);	
 }
 
-void GridShader::drawx4(int t){
-	glUniform2f(texIUni, N_[t].i.x, N_[t].i.z);				
-	glUniform2f(texsUni,  0.5, N_[t].scale);	
-}
 
 void GridShader::drawx16(int t){
 	glUniform2f(texIUni, G16__[t].x, G16__[t].z);		
@@ -118,17 +115,11 @@ const GLchar* gridFragShdr[] =	{
 };
 
 void GridShader::build(){
-
-	// 2x2
-	treesT = loadTexture("NUB/trees.png", false);		
+	
 	//4x4	
-	heroT = loadTexture("hood.png", false); 
-	laserPalmT = loadTexture("laserpalm.png", false); 
-	npcT = loadTexture("npc1.png", false);
-	nobsT = loadTexture("OBJ/nobs1.png", false); 
-	cactiT = loadTexture("NUB/cacti.png", false);		//4x4	
-	miniNubsT = loadTexture("NUB/flowers.png", false);	//4x4	
-	mimicT = loadTexture("NUB/flowers.png", false);	
+	heroT = loadTexture("MAGE/hood.png", false); 
+	laserPalmT = loadTexture("MAGE/laserpalm.png", false); 
+	npcT = loadTexture("MOBS/npc1.png", false);
 
 	glGenVertexArrays(1, &vao); 	glBindVertexArray(vao);
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );

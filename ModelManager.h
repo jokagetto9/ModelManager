@@ -1,8 +1,9 @@
 #ifndef MODELMANAGER_H
 #define MODELMANAGER_H
 
-#include "./Shaders/MenuShader.h"
-#include "./Shaders/TileShader.h"
+#include "Shaders/MenuShader.h"
+#include "Shaders/TileShader.h"
+#include "Shaders/GridShader.h"
 //********************************* CONSTANTS *********************************
 //********************************* EXTERNAL *********************************
 //********************************* INITIALIZATION *********************************
@@ -18,9 +19,18 @@ public:
 
 //************************************************** MEMBERS ***************************************************
 		
-	MenuShader menuBO;
+	//QShader qBO;
+	GridShader gridBO;
 	TileShader tileBO;
-
+	//TerrainShader terrainBO;
+	//TerrainShader2 terrain2BO;
+	//CrossRoadShader roadBO;
+	//ObjectShader objBO;
+	MenuShader menuBO;
+	//CursorShader cursorBO;
+	//IconShader iconBO;
+	//FontShader fontBO;
+	
 private:
 	ModelManager::ModelManager(){}
 	static ModelManager* instance ;

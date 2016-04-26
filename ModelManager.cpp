@@ -6,8 +6,17 @@ ModelManager* ModelManager::instance = 0;
 ModelManager* M;
 
 void ModelManager::		quit(){
+	//qBO.quit();				//if(_DEBUG) cout << "Quit: Q Shader" << endl;
+	gridBO.quit();			//if(_DEBUG) cout << "Quit: Grid Shader" << endl;
+	tileBO.quit();		//if(_DEBUG) cout << "Quit: Terrain Shader1" << endl;
+	//terrainBO.quit();		//if(_DEBUG) cout << "Quit: Terrain Shader1" << endl;
+//	terrain2BO.quit();		//if(_DEBUG) cout << "Quit: Terrain Shader2" << endl;
+	//roadBO.quit();			//if(_DEBUG) cout << "Quit: Road Shader" << endl;
+	//objBO.quit();			//if(_DEBUG) cout << "Quit: Obj Shader" << endl;
 	menuBO.quit();			//if(_DEBUG) cout << "Quit: Menu Shader" << endl;
-	//tileBO.quit();		//if(_DEBUG) cout << "Quit: Terrain Shader1" << endl;
+	//cursorBO.quit();		//if(_DEBUG) cout << "Quit: Menu Shader" << endl;
+	//iconBO.quit();			//if(_DEBUG) cout << "Quit: Menu Shader" << endl;
+	//fontBO.quit();			//if(_DEBUG) cout << "Quit: Font Shader" << endl;
 	Shader::finalQuit();	
 	delete instance; instance = NULL;
 }
