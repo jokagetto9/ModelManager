@@ -42,9 +42,6 @@ MenuShader::MenuShader(){
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(FSData), FSData, GL_STATIC_DRAW );
 
-	
-	menuT[LOAD] = loadTexture("MENU/crablord.png", false);
-	menuT[TITLE] = loadTexture("MENU/title.png", false);
 
 }
 
@@ -54,8 +51,6 @@ void MenuShader::quit(){
 	glDeleteBuffers(1, &fsMenu.vbo);	
 	glDeleteVertexArrays(1, &map.vao);	
 	glDeleteBuffers(1, &map.vbo);	
-	glDeleteTextures(1, &mapT);
-	glDeleteTextures(10, menuT);	
 }
 
 void MenuShader::basicVAOsetup(VAO &v){
@@ -70,9 +65,9 @@ void MenuShader::basicVAOsetup(VAO &v){
 }
 
 //********************************* DRAW *********************************
-void MenuShader::draw(int i){
+void MenuShader::draw(GLuint i){
 	glBindVertexArray(fsMenu.vao);
-	glBindTexture(GL_TEXTURE_2D, menuT[i]);
+	glBindTexture(GL_TEXTURE_2D, i);
 	glUniform1f(scaUni, PIXELSCALE);	
 	glUniform2f(posAtt, 0, -RES.z);		
 	Shader::draw();

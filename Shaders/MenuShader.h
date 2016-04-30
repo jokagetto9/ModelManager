@@ -4,10 +4,6 @@
 #include "Shader.h"
 
 //********************************* CONSTANTS *********************************
-//enum MenuTextures
-const int MENUCOUNT = 25;
-//********************************* INITIALIZATION *********************************
-
 
 
 class MenuShader : public Shader {
@@ -16,7 +12,7 @@ public:
 	void MenuShader::quit();
 	
 	// draw
-	void MenuShader::draw(int i);
+	void MenuShader::draw(GLuint i);
 	void MenuShader::drawMap(int x, int y);
 
 	void MenuShader::basicVAOsetup(VAO &v);
@@ -29,12 +25,8 @@ Triggers:
 
 //************************************************** MEMBERS ***************************************************
 	
-	VAO fsMenu;
-	GLuint menuT[MENUCOUNT];
-	
+	VAO fsMenu;	
 	VAO map;
-	GLuint mapT;
-
 	
 	GLuint scaUni, spinUni;
 	glm::mat4 spin;
