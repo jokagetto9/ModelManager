@@ -16,8 +16,8 @@ public:
 	
 	// draw
 	void CursorShader::basicDraw();
-	void CursorShader::drawCursor(int i);
-	void CursorShader::drawCursor(int i, int x, int y);
+	void CursorShader::drawCursor(GLuint tex, int i);
+	void CursorShader::drawCursor(GLuint tex, int i, int x, int y);
 	void CursorShader::drawIcon(GLuint tex, int x, int y);
 	void CursorShader::drawCompass(float theta);
 
@@ -33,7 +33,6 @@ Triggers:
 //************************************************** MEMBERS ***************************************************
 	
 	VAO cursors[10];
-	GLuint cursorT[10];
 	
 	GLuint scaUni, spinUni;
 	glm::mat4 spin;

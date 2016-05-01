@@ -1,9 +1,10 @@
 #ifndef MODELMANAGER_H
 #define MODELMANAGER_H
 
-#include "Shaders/MenuShader.h"
-#include "Shaders/TileShader.h"
 #include "Shaders/GridShader.h"
+#include "Shaders/TileShader.h"
+#include "Shaders/MenuShader.h"
+#include "Shaders/CursorShader.h"
 //********************************* CONSTANTS *********************************
 //********************************* EXTERNAL *********************************
 //********************************* INITIALIZATION *********************************
@@ -27,7 +28,7 @@ public:
 	//CrossRoadShader roadBO;
 	//ObjectShader objBO;
 	MenuShader menuBO;
-	//CursorShader cursorBO;
+	CursorShader cursorBO;
 	//IconShader iconBO;
 	//FontShader fontBO;
 	

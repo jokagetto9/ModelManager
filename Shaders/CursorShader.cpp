@@ -46,7 +46,6 @@ void CursorShader::quit(){
 		glDeleteVertexArrays(1, &cursors[i].vao);		
 		glDeleteBuffers(1, &cursors[i].vbo);
 	}	
-	glDeleteTextures(10, cursorT);
 }
 
 void CursorShader::basicVAOsetup(VAO &v){
@@ -68,46 +67,42 @@ const GLfloat mapData[] = {	25, 25, 	25, 0,		0, 25,		0, 0};
 
 const GLfloat compassData[] = {	9, 9, 	9, 0,		0, 9,		0, 0};
 const GLfloat iconData[] = {	32, 32, 	32, 0,		0, 32,		0, 0};
-const GLfloat keyData[] = {	12, 12, 	12, 0,		0, 12,		0, 0};
+const GLfloat arrowData[] = {	10, 10, 	10, 0,		0, 10,		0, 0};
 const GLfloat cursor1Data[] = {	42, 42, 	42, 0,		0, 42,		0, 0};
 const GLfloat cursor2Data[] = {	76, 76, 	76, 0,		0, 76,		0, 0};
 const GLfloat cursor3Data[] = {	86, 44, 	86, 0,		0, 44,		0, 0};
 
 void CursorShader::buildCursors(){
 	int i = 0;
-	cursorT[i] = loadTexture("MENU/cursor0.png", false);
 	basicVAOsetup(cursors[i]);
 	cursors[i].vid.z = 1;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(pData), pData, GL_STATIC_DRAW );
 
 	i = 1;
-	cursorT[i] = loadTexture("MENU/cursor1.png", false);
+	//cursorT[i] = loadTexture("MENU/key.png", false);
+	basicVAOsetup(cursors[i]);
+	cursors[i].vid.z = 1;
+	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(arrowData), arrowData, GL_STATIC_DRAW );
+
+	i = 2;
 	basicVAOsetup(cursors[i]);
 	cursors[i].vid.z = 1;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(cursor1Data), cursor1Data, GL_STATIC_DRAW );
 
-	i = 2;
-	cursorT[i] = loadTexture("MENU/cursor2.png", false);
+	i = 3;
 	basicVAOsetup(cursors[i]);
 	cursors[i].vid.z = 1;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(cursor2Data), cursor2Data, GL_STATIC_DRAW );		
 
-	i = 3;
-	cursorT[i] = loadTexture("MENU/cursor3.png", false);
+	i = 4;
 	basicVAOsetup(cursors[i]);
 	cursors[i].vid.z = 1;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(cursor3Data), cursor3Data, GL_STATIC_DRAW );		
-
-	i = 4;
-	//cursorT[i] = loadTexture("MENU/key.png", false);
-	basicVAOsetup(cursors[i]);
-	cursors[i].vid.z = 1;
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(keyData), keyData, GL_STATIC_DRAW );		
 
 	i = 5;
 	//cursorT[i] = loadTexture("MENU/icon.png", false);
@@ -134,18 +129,18 @@ void CursorShader::basicDraw(){
 	Shader::draw();
 }
 
-void CursorShader::drawCursor(int i){
+void CursorShader::drawCursor(GLuint tex, int i){
 	glBindVertexArray(cursors[i].vao);
-	glBindTexture(GL_TEXTURE_2D, cursorT[i]);
+	glBindTexture(GL_TEXTURE_2D, tex);
 	glUniform1f(scaUni, cursors[i].vid.z);	
 	glUniform2f(posAtt, cursors[i].vid.x, cursors[i].vid.y );	
 	basicDraw();
 }
 
 
-void CursorShader::drawCursor(int i, int x, int y){
+void CursorShader::drawCursor(GLuint tex, int i, int x, int y){
 	glBindVertexArray(cursors[i].vao);
-	glBindTexture(GL_TEXTURE_2D, cursorT[i]);
+	glBindTexture(GL_TEXTURE_2D, tex);
 	glUniform1f(scaUni, cursors[i].vid.z);	
 	glUniform2f(posAtt, x, y-RES.z );		
 	basicDraw();
@@ -160,17 +155,3 @@ void CursorShader::drawIcon(GLuint tex, int x, int y){
 	basicDraw();
 }
 
-
-
-void CursorShader::drawCompass(float theta){
-	//use();
-	int i = 9;
-	glBindVertexArray(cursors[i].vao);
-	glBindTexture(GL_TEXTURE_2D, cursorT[i]);
-	glUniform1f(scaUni, cursors[i].vid.z);	
-	glUniform2f(posAtt, cursors[i].vid.x, cursors[i].vid.y );
-	spin = glm::translate(idm, glm::vec3( RES.x-64, 64, 0.0f));
-	spin = glm::rotate(spin, glm::radians(theta), glm::vec3(0.0f, 0.0f, 1.0f));
-	glUniformMatrix4fv(spinUni, 1, GL_FALSE, glm::value_ptr(spin));
-	Shader::draw();	
-}
