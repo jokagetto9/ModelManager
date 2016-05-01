@@ -82,7 +82,7 @@ void CursorShader::buildCursors(){
 	i = 1;
 	//cursorT[i] = loadTexture("MENU/key.png", false);
 	basicVAOsetup(cursors[i]);
-	cursors[i].vid.z = 1;
+	cursors[i].vid.z = PIXELSCALE;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(arrowData), arrowData, GL_STATIC_DRAW );
 
