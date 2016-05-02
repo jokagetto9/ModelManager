@@ -2,8 +2,8 @@
 #define ANIMATION_H
 
 
-#include "Camera.h"
-#include "Shaders\ModelManager.h"
+#include "../BaseEngine/Stack/Camera.h"
+#include "ModelManager.h"
 //********************************* CONSTANTS *********************************
 enum AnimType { CYCLIC, WALK8, WALK12};  
 

@@ -1,6 +1,6 @@
 #ifndef MODELDATA_H
 #define MODELDATA_H
-#include "../../lib.h"
+#include "../BaseEngine/lib.h"
 
 void enableDraw();
 void billboard();
