@@ -71,7 +71,7 @@ const GLchar* gridVerShdr[] = {
 	"uniform vec2 texS;"
 	"void main() { "
 	"	p;"		
-	"	float c = texS.x;  float d = texS.y * 5; vec2 pos;"
+	"	float c = texS.x;  float d = texS.y * 4; vec2 pos;"
 	"	if (gl_VertexID == 0)		{ pos.x = d/2 ;	pos.y = 0; t.x = c*(texI.x+1); t.y = c*(texI.y+1);}"
 	"	else if (gl_VertexID == 1)	{ pos.x = d/2 ;	pos.y = d; t.x = c*(texI.x+1); t.y = c*texI.y;}"
 	"	else if (gl_VertexID == 2)	{ pos.x = -d/2 ;	pos.y = 0; t.x = c*texI.x; t.y = c*(texI.y+1);}"
