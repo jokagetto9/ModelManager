@@ -33,13 +33,19 @@ void GridShader::prepHero(){
 	glUniform2f(texsUni, 0.25, 2);	
 }
 
-void GridShader::prep(ID tex, float scale){
-	glBindTexture(GL_TEXTURE_2D, tex);	
-	glUniform2f(texsUni, 0.25, scale);	
+void GridShader::prep(ShaderProfile &sp){
+	glBindTexture(GL_TEXTURE_2D, sp.tex);
+	float g = 0.25;
+	if (sp.g == G2x2)
+		g = 0.5;
+	else if (sp.g == G1x1)
+		g = 1;
+	glUniform2f(texsUni, g, sp.scale);	
 }
 
 
 void GridShader::drawx16(int t){
+	//glUniform2f(texIUni, G4__[t].x, G4__[t].z);	
 	glUniform2f(texIUni, G16__[t].x, G16__[t].z);		
 	glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL );
 }
