@@ -27,31 +27,15 @@ void GridShader::use(){
 }
 
 
-void GridShader::prepTree(){
-	glBindTexture(GL_TEXTURE_2D, treesT);
-	//glUniform1i(texUni, 0);		
-}
-void GridShader::prepCacti(){
-	glBindTexture(GL_TEXTURE_2D, cactiT);	
-	glUniform2f(texsUni, 0.25, 3);	
-}
-void GridShader::prepFlowers(){
-	glBindTexture(GL_TEXTURE_2D, miniNubsT);
-	glUniform2f(texsUni, 0.25, 0.4); //mininubsize	
-}
-void GridShader::prepNobs(int s){
-	glBindTexture(GL_TEXTURE_2D, nobsT);
-	glUniform2f(texsUni, 0.25, s); //mininubsize	
-}
 void GridShader::prepHero(){
 	use();
 	glBindTexture(GL_TEXTURE_2D, heroT);	
 	glUniform2f(texsUni, 0.25, 2);	
 }
-void GridShader::prepNPC(){
-	use();
-	glBindTexture(GL_TEXTURE_2D, npcT);	
-	glUniform2f(texsUni, 0.25, 1);	
+
+void GridShader::prep(ID tex, float scale){
+	glBindTexture(GL_TEXTURE_2D, tex);	
+	glUniform2f(texsUni, 0.25, scale);	
 }
 
 

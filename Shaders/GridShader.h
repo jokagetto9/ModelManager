@@ -18,12 +18,8 @@ public:
 	void GridShader::use();
 
 	// prep
-	void GridShader::prepFlowers();
-	void GridShader::prepNobs(int s);
-	void GridShader::prepCacti();
 	void GridShader::prepHero();
-	void GridShader::prepNPC();
-	void GridShader::prepTree();
+	void GridShader::prep(ID tex, float scale);
 
 	void GridShader::drawx4(int t);
 	void GridShader::drawx16(int t);
