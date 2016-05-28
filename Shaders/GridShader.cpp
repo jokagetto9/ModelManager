@@ -5,7 +5,8 @@ GridShader::GridShader(){
  	prog = 0;	vbo = 0;	ebo = 0;
 	posAtt = -1; texAtt = -1;
 	initBufferObjects();
-	build();
+	build(); 
+	scale = 1;
 	//glUniform1i(texUni[0], 0);		
 }
 
@@ -13,12 +14,6 @@ void GridShader::quit(){
 	glDeleteProgram( prog );
 	glDeleteVertexArrays(1, &vao);
 	
-	glDeleteTextures(1, &treesT);
-	glDeleteTextures(1, &heroT);	
-	glDeleteTextures(1, &npcT);		
-	glDeleteTextures(1, &cactiT);		
-	glDeleteTextures(1, &miniNubsT);
-	glDeleteTextures(1, &nobsT);
 }
 
 void GridShader::use(){	
@@ -30,7 +25,9 @@ void GridShader::use(){
 void GridShader::prepHero(){
 	use();
 	glBindTexture(GL_TEXTURE_2D, heroT);	
-	glUniform2f(texsUni, 0.25, 2);	
+	glUniform2f(texScale, 2, 2);	
+	glUniform1f(gridScale, 0.25);	
+
 }
 
 void GridShader::prep(ShaderProfile &sp){
@@ -40,14 +37,26 @@ void GridShader::prep(ShaderProfile &sp){
 		g = 0.5;
 	else if (sp.g == G1x1)
 		g = 1;
-	glUniform2f(texsUni, g, sp.scale);	
+	scale = sp.scale;
+	glUniform2f(texScale, scale, scale);	
+	glUniform1f(gridScale, g);		
 }
 
 
 void GridShader::drawx16(int t){
 	//glUniform2f(texIUni, G4__[t].x, G4__[t].z);	
-	glUniform2f(texIUni, G16__[t].x, G16__[t].z);		
+	glUniform2f(texIndex, G16__[t].x, G16__[t].z);		
 	glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL );
+}
+
+
+void GridShader::flip(int x, int y){
+	if (x < 0 && y < 0)
+		glUniform2f(texScale, -scale, -scale);
+	else if (x < 0)
+		glUniform2f(texScale, -scale, scale);
+	else if (y < 0)
+		glUniform2f(texScale, scale, -scale);
 }
 
 //********************************* QUAD16 PROGRAM *********************************
@@ -57,16 +66,30 @@ const GLchar* gridVerShdr[] = {
 	"out vec2 t;"
 	"out vec4 vs;"
 	"out vec4 dv;"
-	"uniform vec2 texI;"	
-	"uniform vec2 texS;"
+	"uniform vec2 index;"	
+	"uniform vec2 scale;"
+	"uniform float grid;"
 	"void main() { "
-	"	p;"		
-	"	float c = texS.x;  float d = texS.y * 4; vec2 pos;"
-	"	if (gl_VertexID == 0)		{ pos.x = d/2 ;	pos.y = 0; t.x = c*(texI.x+1); t.y = c*(texI.y+1);}"
-	"	else if (gl_VertexID == 1)	{ pos.x = d/2 ;	pos.y = d; t.x = c*(texI.x+1); t.y = c*texI.y;}"
-	"	else if (gl_VertexID == 2)	{ pos.x = -d/2 ;	pos.y = 0; t.x = c*texI.x; t.y = c*(texI.y+1);}"
-	"	else if (gl_VertexID == 3)	{ pos.x = -d/2 ;	pos.y = d; t.x = c*texI.x; t.y = c*texI.y;}"		
-	"	vec4 vPos = vec4( pos, 0.0, 1.0 );"
+
+	"	p;												"		
+	"	float c = grid;									"
+	"	float sx = scale.x * 4;							"		
+	"	float sy = scale.y * 4;							"		
+	"	vec2 pos;										"
+	"	if (gl_VertexID == 0){							"
+	"		pos.x = sx/2 ;	pos.y = 0;					"
+	"		t.x = c*(index.x+1); t.y = c*(index.y+1);	"
+	"	}else if (gl_VertexID == 1)	{					"
+	"		pos.x = sx/2 ;	pos.y = sy;					"
+	"		t.x = c*(index.x+1); t.y = c*index.y;		"
+	"	}else if (gl_VertexID == 2)	{					"
+	"		pos.x = -sx/2 ;	pos.y = 0;					"
+	"		t.x = c*index.x; t.y = c*(index.y+1);		"
+	"	}else if (gl_VertexID == 3)	{					"
+	"		pos.x = -sx/2 ;	pos.y = sy;					"
+	"		t.x = c*index.x; t.y = c*index.y;			"
+	"	}												"		
+	"	vec4 vPos = vec4( pos, 0.0, 1.0 );				"
 
 	"	mat4 mvm = gl_ModelViewMatrix;"
 	"	for(int i=0; i<3; i++ ) "
@@ -109,17 +132,16 @@ void GridShader::build(){
 	//4x4	
 	heroT = loadTexture("MAGE/hood.png", false); 
 	laserPalmT = loadTexture("MAGE/laserpalm.png", false); 
-	npcT = loadTexture("MOBS/npc1.png", false);
 
 	glGenVertexArrays(1, &vao); 	glBindVertexArray(vao);
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	
 	prog = glCreateProgram();
 	if (buildProgram(gridVerShdr, gridFragShdr, prog)){			
-		texIUni = glGetUniformLocation(prog, "texI");
+		texIndex = glGetUniformLocation(prog, "index");
 		texUni[0] = glGetUniformLocation(prog, "tex");
-		texsUni = glGetUniformLocation(prog, "texS");
-
+		texScale = glGetUniformLocation(prog, "scale");
+		gridScale = glGetUniformLocation(prog, "grid");
 		attachDummy();	
 	}
 	//if(_DEBUG) cout << "Loaded: Grid Shader" << endl;

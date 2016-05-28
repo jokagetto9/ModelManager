@@ -5,12 +5,12 @@
 
 //********************************* CONSTANTS *********************************
 enum GRIDTYPE {G1x1, G2x2, G4x4, GMISC};
+
 struct ShaderProfile{
 	ID tex;
 	float scale;	
 	GRIDTYPE g;
 };
-
 //********************************* INITIALIZATION *********************************
 
 
@@ -28,6 +28,7 @@ public:
 
 	void GridShader::drawx4(int t);
 	void GridShader::drawx16(int t);
+	void GridShader::flip(int x, int y);	
 
 	//build
 	void GridShader::build();	
@@ -38,16 +39,10 @@ Triggers:
 
 //************************************************** MEMBERS ***************************************************
 	
-	
-	//x4
-	GLuint treesT;	
-	//x16
-	GLuint heroT, npcT;
+	GLuint heroT;
 	GLuint laserPalmT;
-	GLuint nobsT, miniNubsT, cactiT;
-	GLuint mimicT;
-	GLuint texIUni, texsUni;
-	
+	GLuint texIndex, texScale, gridScale;
+	float scale;
 
 };
 #endif
