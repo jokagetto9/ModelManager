@@ -220,7 +220,7 @@ void FontShader::draw(int x, int y){
 	//*/
 	if (smallFont)	glBindTexture(GL_TEXTURE_2D, sfontT);
 	else			glBindTexture(GL_TEXTURE_2D, fontT);
-	glUniform2f(posAtt, x, -height+y);	
+	glUniform2f(posAtt, x, -RES.z+y);	
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL, currChars());
 	
 	//if(counter >= 46)	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL, (counter-44)/2);

@@ -16,7 +16,7 @@ void ModelManager::		quit(){
 	menuBO.quit();			//if(_DEBUG) cout << "Quit: Menu Shader" << endl;
 	//cursorBO.quit();		//if(_DEBUG) cout << "Quit: Menu Shader" << endl;
 	//iconBO.quit();			//if(_DEBUG) cout << "Quit: Menu Shader" << endl;
-	//fontBO.quit();			//if(_DEBUG) cout << "Quit: Font Shader" << endl;
+	fontBO.quit();			//if(_DEBUG) cout << "Quit: Font Shader" << endl;
 	Shader::finalQuit();	
 	delete instance; instance = NULL;
 }

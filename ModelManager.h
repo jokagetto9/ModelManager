@@ -5,6 +5,7 @@
 #include "Shaders/TileShader.h"
 #include "Shaders/MenuShader.h"
 #include "Shaders/CursorShader.h"
+#include "Shaders/FontShader.h"
 //********************************* CONSTANTS *********************************
 //********************************* EXTERNAL *********************************
 //********************************* INITIALIZATION *********************************
@@ -30,7 +31,7 @@ public:
 	MenuShader menuBO;
 	CursorShader cursorBO;
 	//IconShader iconBO;
-	//FontShader fontBO;
+	FontShader fontBO;
 	
 private:
 	ModelManager::ModelManager(){}
