@@ -6,6 +6,8 @@
 //********************************* CONSTANTS *********************************
 enum GRIDTYPE {G1x1, G2x2, G4x4, GMISC};
 
+const float GRIDSCALE[] = {1.0, 0.5, 0.25, 1};
+
 struct ShaderProfile{
 	ID tex;
 	float scale;	
@@ -36,13 +38,14 @@ public:
 Side Effects:  
 Triggers: 
 /*/
-
+	
+	void GridShader::changeGrid(GRIDTYPE g);	
 //************************************************** MEMBERS ***************************************************
 	
 	GLuint heroT;
 	GLuint laserPalmT;
 	GLuint texIndex, texScale, gridScale;
 	float scale;
-
+	GRIDTYPE grid;
 };
 #endif

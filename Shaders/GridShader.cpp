@@ -7,6 +7,7 @@ GridShader::GridShader(){
 	initBufferObjects();
 	build(); 
 	scale = 1;
+	grid = G4x4;
 	//glUniform1i(texUni[0], 0);		
 }
 
@@ -26,30 +27,41 @@ void GridShader::prepHero(){
 	use();
 	glBindTexture(GL_TEXTURE_2D, heroT);	
 	glUniform2f(texScale, 2, 2);	
-	glUniform1f(gridScale, 0.25);	
-
+	glUniform1f(gridScale, 0.25);
+	grid  = G4x4;
 }
 
 void GridShader::prep(ShaderProfile &sp){
 	glBindTexture(GL_TEXTURE_2D, sp.tex);
 	float g = 0.25;
-	if (sp.g == G2x2)
-		g = 0.5;
-	else if (sp.g == G1x1)
-		g = 1;
+
+	if (sp.g != grid){
+		grid = sp.g;
+		g = GRIDSCALE[grid];
+		glUniform1f(gridScale, g);		
+		if (sp.g == GMISC){}
+	}
+
 	scale = sp.scale;
 	glUniform2f(texScale, scale, scale);	
-	glUniform1f(gridScale, g);		
+	//glUniform1f(gridScale, g);		
 }
 
 
 void GridShader::drawx16(int t){
-	//glUniform2f(texIUni, G4__[t].x, G4__[t].z);	
-	glUniform2f(texIndex, G16__[t].x, G16__[t].z);		
+	if (grid == G4x4)
+		glUniform2f(texIndex, G16__[t].x, G16__[t].z);	
+	else if (grid == G2x2)
+		glUniform2f(texIndex, G4__[t].x, G4__[t].z);
 	glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL );
 }
 
 
+void GridShader::changeGrid(GRIDTYPE g){
+
+
+
+}
 void GridShader::flip(int x, int y){
 	if (x < 0 && y < 0)
 		glUniform2f(texScale, -scale, -scale);
