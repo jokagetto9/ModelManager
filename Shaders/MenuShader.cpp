@@ -22,12 +22,11 @@ const GLchar* menuFragShdr[] =	{
 	"}"
 };
 
-const GLfloat FSData[] = {	dfWIDTH, dfHEIGHT, 	dfWIDTH, 0,		0, dfHEIGHT,		0, 0}; //del
 
 MenuShader::MenuShader(){
 	vbo = 0;	ebo = 0;
 	posAtt = -1; texAtt = -1;
-	
+	GLfloat FSData[] = {PIXELSCALE*pWIDTH, PIXELSCALE*pHEIGHT, PIXELSCALE*pWIDTH, 0,		0, PIXELSCALE*pHEIGHT,		0, 0};
 
 	prog = glCreateProgram();
 	buildProgram(menuVerShdr, menuFragShdr, prog);
