@@ -28,8 +28,7 @@ public:
 	void GridShader::prepHero();
 	void GridShader::prep(ShaderProfile &sp);
 
-	void GridShader::drawx4(int t);
-	void GridShader::drawx16(int t);
+	void GridShader::drawGrid(ID index);
 	void GridShader::flip(int x, int y);	
 
 	//build

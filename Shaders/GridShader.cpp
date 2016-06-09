@@ -48,11 +48,13 @@ void GridShader::prep(ShaderProfile &sp){
 }
 
 
-void GridShader::drawx16(int t){
+void GridShader::drawGrid(ID index){
 	if (grid == G4x4)
-		glUniform2f(texIndex, G16__[t].x, G16__[t].z);	
+		glUniform2f(texIndex, G16__[index].x, G16__[index].z);	
 	else if (grid == G2x2)
-		glUniform2f(texIndex, G4__[t].x, G4__[t].z);
+		glUniform2f(texIndex, G4__[index].x, G4__[index].z);
+	else 
+		glUniform2f(texIndex, 0, 0);
 	glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL );
 }
 
