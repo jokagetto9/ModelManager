@@ -4,9 +4,9 @@
 #include "Shader.h"
 
 //********************************* CONSTANTS *********************************
-enum GRIDTYPE {G1x1, G2x2, G4x4, GMISC};
+enum GRIDTYPE {G1x1, G2x2, G4x4, G5x5, GMISC};
 
-const float GRIDSCALE[] = {1.0, 0.5, 0.25, 1};
+const float GRIDSCALE[] = {1.0, 0.5, 0.25, 0.2, 1};
 
 struct ShaderProfile{
 	ID tex;

@@ -53,7 +53,9 @@ void GridShader::drawGrid(ID index){
 		glUniform2f(texIndex, G16__[index].x, G16__[index].z);	
 	else if (grid == G2x2)
 		glUniform2f(texIndex, G4__[index].x, G4__[index].z);
-	else 
+	else if (grid == G5x5){
+		glUniform2f(texIndex, G25__[index].x, G25__[index].z);
+	}else 
 		glUniform2f(texIndex, 0, 0);
 	glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL );
 }
