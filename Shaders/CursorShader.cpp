@@ -61,6 +61,7 @@ void CursorShader::basicVAOsetup(VAO &v){
 
 //********************************* MENU PROGRAM *********************************
 const GLfloat pData[] = {	1, 1, 	1, 0,		0, 1,		0, 0};
+const GLfloat p4Data[] = {	4, 4, 	4, 0,		0, 4,		0, 0};
 const GLfloat hubData[] = {	166, 166, 	166, 0,		0, 166,		0, 0};
 const GLfloat FSData[] = {	1000, 700, 	1000, 0,		0, 700,		0, 0}; //del
 const GLfloat mapData[] = {	25, 25, 	25, 0,		0, 25,		0, 0};
@@ -75,7 +76,7 @@ const GLfloat cursor3Data[] = {	86, 44, 	86, 0,		0, 44,		0, 0};
 void CursorShader::buildCursors(){
 	int i = 0;
 	basicVAOsetup(cursors[i]);
-	cursors[i].vid.z = 1;
+	cursors[i].vid.z = PIXELSCALE;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(pData), pData, GL_STATIC_DRAW );
 
@@ -90,7 +91,7 @@ void CursorShader::buildCursors(){
 	basicVAOsetup(cursors[i]);
 	cursors[i].vid.z = 1;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
-	glBufferData( GL_ARRAY_BUFFER, sizeof(cursor1Data), cursor1Data, GL_STATIC_DRAW );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(p4Data), p4Data, GL_STATIC_DRAW );
 
 	i = 3;
 	basicVAOsetup(cursors[i]);
