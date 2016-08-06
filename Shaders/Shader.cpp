@@ -108,7 +108,9 @@ bool Shader::loadProgram(GLuint progID){
 	if( programSuccess != GL_TRUE )	{
 		// print error message and return false
 		glGetProgramInfoLog( progID, ERROR_SIZE, NULL, errorBuffer );
-		std::cout << errorBuffer << std::endl; return false;
+		std::cout << errorBuffer << std::endl; 
+		logfile << errorBuffer << std::endl;
+		return false;
 	}
 	return true;	// link is successful
 }
@@ -138,6 +140,7 @@ bool Shader::loadShader(GLenum shdrType, GLuint &shdr, const GLchar ** src ){
 		// print error message, delete shader ID and return false
 		glGetShaderInfoLog(shdr, ERROR_SIZE, NULL, errorBuffer);
 		std::cout << errorBuffer << std::endl;
+		logfile << errorBuffer << std::endl;
 		glDeleteShader(shdr);	return false;
 	}
 	return true;	//compile is successful

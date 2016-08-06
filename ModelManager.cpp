@@ -45,7 +45,10 @@ GLuint loadTexture(char *fname, bool rep){
 
 	SDL_Surface *png;
 	png = IMG_Load(fname);
-	if(!png) {printf("IMG_Load: %s\n", IMG_GetError()); SDL_Delay(5000); exit(1);}		// handle error
+	if(!png) {
+		printf("IMG_Load: %s\n", IMG_GetError()); 
+		logfile << "IMG_Load: " << IMG_GetError() << endl;
+		SDL_Delay(5000); exit(1);}		// handle error
 	else{	// handle error
 	
  		SDL_PixelFormat* format = png->format;   
