@@ -5,10 +5,13 @@ const GLchar* cursorVerShdr[] = {
 	"#version 150 compatibility\n"
 	"in vec2 texC; out vec2 t;"
 	"uniform vec2 pos;"
+	"uniform vec2 bar;"
 	"uniform mat4 spin;"
 	"uniform float s;"
 	"void main() { "
 	"	t = texC;"
+	"	t.x *= bar.x;"
+	"	t.y *= bar.y;"
 	"	gl_Position = gl_ProjectionMatrix * (spin * vec4( pos.x+s*t.x, -(pos.y+s*t.y), 0.0, 1.0 ));"
 	"}"
 };
@@ -35,6 +38,7 @@ CursorShader::CursorShader(){
 	spinUni = glGetUniformLocation(prog, "spin");
 	texAtt = glGetAttribLocation( prog, "texC" );	
 	posAtt = glGetUniformLocation( prog, "pos" ); 	
+	barAtt = glGetUniformLocation( prog, "bar" ); 	
 
 	buildCursors();
 
@@ -72,6 +76,7 @@ const GLfloat arrowData[] = {	10, 10, 	10, 0,		0, 10,		0, 0};
 const GLfloat cursor1Data[] = {	42, 42, 	42, 0,		0, 42,		0, 0};
 const GLfloat cursor2Data[] = {	76, 76, 	76, 0,		0, 76,		0, 0};
 const GLfloat cursor3Data[] = {	86, 44, 	86, 0,		0, 44,		0, 0};
+const GLfloat barData[] = {	75, 8, 	75, 0,		0, 8,		0, 0};
 
 void CursorShader::buildCursors(){
 	int i = 0;
@@ -89,7 +94,7 @@ void CursorShader::buildCursors(){
 
 	i = 2;
 	basicVAOsetup(cursors[i]);
-	cursors[i].vid.z = 1;
+	cursors[i].vid.z = PIXELSCALE;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(p4Data), p4Data, GL_STATIC_DRAW );
 
@@ -111,6 +116,14 @@ void CursorShader::buildCursors(){
 	cursors[i].vid.z = 1;
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
 	glBufferData( GL_ARRAY_BUFFER, sizeof(iconData), iconData, GL_STATIC_DRAW );		
+
+	i = 6;
+	//cursorT[i] = loadTexture("MENU/icon.png", false);
+	basicVAOsetup(cursors[i]);
+	cursors[i].vid.z = PIXELSCALE;
+	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, lilebo );
+	glBufferData( GL_ARRAY_BUFFER, sizeof(barData), barData, GL_STATIC_DRAW );		
+
 
 	i = 9;
 	//cursorT[i] = loadTexture("MENU/arrow.png", false);		
@@ -134,7 +147,8 @@ void CursorShader::drawCursor(GLuint tex, int i){
 	glBindVertexArray(cursors[i].vao);
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glUniform1f(scaUni, cursors[i].vid.z);	
-	glUniform2f(posAtt, cursors[i].vid.x, cursors[i].vid.y );	
+	glUniform2f(posAtt, cursors[i].vid.x, cursors[i].vid.y );		
+	glUniform2f(barAtt, 1, 1);		
 	basicDraw();
 }
 
@@ -143,7 +157,8 @@ void CursorShader::drawCursor(GLuint tex, int i, int x, int y){
 	glBindVertexArray(cursors[i].vao);
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glUniform1f(scaUni, cursors[i].vid.z);	
-	glUniform2f(posAtt, x, y-RES.z );		
+	glUniform2f(posAtt, x, y-RES.z );			
+	glUniform2f(barAtt, 1, 1);		
 	basicDraw();
 }
 
@@ -153,6 +168,16 @@ void CursorShader::drawIcon(GLuint tex, int x, int y){
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glUniform1f(scaUni, cursors[i].vid.z);	
 	glUniform2f(posAtt, x, y-RES.z );		
+	glUniform2f(barAtt, 1, 1);		
 	basicDraw();
 }
 
+
+void CursorShader::drawBar(GLuint tex, int i, float sx, float sy, int x, int y){
+	glBindVertexArray(cursors[i].vao);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glUniform1f(scaUni, cursors[i].vid.z);	
+	glUniform2f(posAtt, x, y-RES.z );		
+	glUniform2f(barAtt, sx, sy);		
+	basicDraw();
+}

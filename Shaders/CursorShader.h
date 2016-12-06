@@ -20,6 +20,7 @@ public:
 	void CursorShader::drawCursor(GLuint tex, int i, int x, int y);
 	void CursorShader::drawIcon(GLuint tex, int x, int y);
 	void CursorShader::drawCompass(float theta);
+	void CursorShader::drawBar(GLuint tex, int i, float sx, float sy, int x, int y);
 
 	void CursorShader::basicVAOsetup(VAO &v);
 	void CursorShader::buildCursors();
@@ -34,6 +35,7 @@ Triggers:
 	
 	VAO cursors[10];
 	
+	GLuint barAtt;
 	GLuint scaUni, spinUni;
 	glm::mat4 spin;
 	glm::mat4 idm;
