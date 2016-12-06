@@ -27,7 +27,8 @@ public:
 	// prep
 	void GridShader::prepHero();
 	void GridShader::prep(ShaderProfile &sp);
-
+	
+	void GridShader::offsetTexture(float x, float y);
 	void GridShader::drawGrid(ID index);
 	void GridShader::flip(int x, int y);	
 
@@ -43,7 +44,7 @@ Triggers:
 	
 	GLuint heroT;
 	GLuint laserPalmT;
-	GLuint texIndex, texScale, gridScale;
+	GLuint texIndex, texScale, gridScale, offset;
 	float scale;
 	GRIDTYPE grid;
 };

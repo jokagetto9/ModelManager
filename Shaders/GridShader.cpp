@@ -43,10 +43,14 @@ void GridShader::prep(ShaderProfile &sp){
 	}
 
 	scale = sp.scale;
-	glUniform2f(texScale, scale, scale);	
+	glUniform2f(texScale, scale, scale);
+	glUniform2f(offset, 0, 0);		
 	//glUniform1f(gridScale, g);		
 }
 
+void GridShader::offsetTexture(float x, float y){	
+	glUniform2f(offset, x, y);		
+}
 
 void GridShader::drawGrid(ID index){
 	if (grid == G4x4)
@@ -84,6 +88,7 @@ const GLchar* gridVerShdr[] = {
 	"out vec4 dv;"
 	"uniform vec2 index;"	
 	"uniform vec2 scale;"
+	"uniform vec2 offset;"
 	"uniform float grid;"
 	"void main() { "
 
@@ -105,7 +110,7 @@ const GLchar* gridVerShdr[] = {
 	"		pos.x = -sx/2 ;	pos.y = sy;					"
 	"		t.x = c*index.x; t.y = c*index.y;			"
 	"	}												"		
-	"	vec4 vPos = vec4( pos, 0.0, 1.0 );				"
+	"	vec4 vPos = vec4( pos.x + offset.x, pos.y + offset.y, 0.0, 1.0 );				"
 
 	"	mat4 mvm = gl_ModelViewMatrix;"
 	"	for(int i=0; i<3; i++ ) "
@@ -154,10 +159,11 @@ void GridShader::build(){
 	
 	prog = glCreateProgram();
 	if (buildProgram(gridVerShdr, gridFragShdr, prog)){			
-		texIndex = glGetUniformLocation(prog, "index");
+		texIndex = glGetUniformLocation(prog, "index");	
 		texUni[0] = glGetUniformLocation(prog, "tex");
 		texScale = glGetUniformLocation(prog, "scale");
 		gridScale = glGetUniformLocation(prog, "grid");
+		offset = glGetUniformLocation(prog, "offset");
 		attachDummy();	
 	}
 	//if(_DEBUG) cout << "Loaded: Grid Shader" << endl;
